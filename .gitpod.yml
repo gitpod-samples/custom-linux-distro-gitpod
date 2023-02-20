@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Test
+    command: |
+      sudo pacman -S --noconfirm neofetch && neofetch 
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker
+    - timonwong.shellcheck
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true
