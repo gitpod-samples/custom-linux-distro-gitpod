@@ -1,19 +1,19 @@
 FROM library/archlinux
 ### Everything ###
-RUN pacman -Syu --noconfirm \
-    pacman -S base-devel git git-lfs htop sudo nano vim man-db zsh fish ripgrep stow which emacs-nox multitail ssl-cert \
-    lsof jq zip unzip meson && locale-gen en_US.UTF-8 \
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm base-devel git git-lfs htop sudo nano vim man-db zsh fish ripgrep stow which emacs-nox multitail \
+    lsof jq zip unzip meson && locale-gen en_US.UTF-8 
+
 ### Gitpod user ###
-RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
-    # passwordless sudo for users in the 'sudo' group
-    && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers \
+COPY sudoers /etc
+RUN useradd -l -u 33333 -G wheel -md /home/gitpod -s /bin/bash -p gitpod gitpod \
     # To emulate the workspace-session behavior within dazzle build env
     && mkdir /workspace && chown -hR gitpod:gitpod /workspace
 
 ENV HOME=/home/gitpod
 WORKDIR $HOME
 # custom Bash prompt
-RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
+COPY --chown=gitpod:gitpod bash.bashrc /home/gitpod/.bashrc
 
 # configure git-lfs
 RUN git lfs install --system --skip-repo
