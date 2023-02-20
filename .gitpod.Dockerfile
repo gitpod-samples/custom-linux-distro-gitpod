@@ -15,9 +15,6 @@ WORKDIR $HOME
 # custom Bash prompt
 RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
 
-COPY default.gitconfig /etc/gitconfig
-COPY --chown=gitpod:gitpod default.gitconfig /home/gitpod/.gitconfig
-
 # configure git-lfs
 RUN git lfs install --system --skip-repo
 
