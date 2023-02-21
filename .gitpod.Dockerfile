@@ -1,7 +1,7 @@
 FROM library/archlinux
 RUN pacman -Syu --noconfirm && \
-    pacman -S --noconfirm base-devel git git-lfs htop sudo nano vim man-db zsh fish ripgrep stow which emacs-nox multitail ruby \
-    lsof jq zip unzip meson docker clang lld rlwrap clojure go rustup cmake apache nginx php php-fpm php-gd php-pgsql php-sqlite python-pip nodejs npm\
+    pacman -S --noconfirm base-devel git git-lfs htop sudo nano vim man-db zsh fish ripgrep stow which emacs-nox multitail ruby openssh \
+    lsof jq zip unzip meson docker clang lld rlwrap clojure go rustup cmake apache nginx php php-fpm php-gd php-pgsql php-sqlite python-pip nodejs npm \
      && locale-gen en_US.UTF-8 
 
 ### Gitpod user ###
@@ -44,6 +44,18 @@ ENV PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH
 ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
+
+# Configure Docker
+RUN curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.12/slirp4netns-$(uname -m) \
+    && chmod +x /usr/bin/slirp4netns
+
+RUN curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-$(uname -m) \
+    && chmod +x /usr/local/bin/docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && \
+    ln -s /usr/local/bin/docker-compose /usr/local/lib/docker/cli-plugins/docker-compose
+
+RUN curl -o /tmp/dive.tar.gz -fsSL https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.tar.gz \
+    && tar -xf dive_0.10.0_linux_amd64.tar.gz && cp dive /usr/bin \
+    && rm -rf /tmp/* dive
 
 # Configure Apache and Nginx
 USER root
