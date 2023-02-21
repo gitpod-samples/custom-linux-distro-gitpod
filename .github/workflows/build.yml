@@ -34,6 +34,7 @@ jobs:
         sudo apt update
         sudo apt -yq install openssh-server
         sudo systemctl start sshd
+        echo runner:hello | sudo chpasswd
         sleep infinity
 
   build-debian:
@@ -65,4 +66,5 @@ jobs:
         sudo apt update
         sudo apt -yq install openssh-server
         sudo systemctl start sshd
+        echo runner:konichiwa | sudo chpasswd
         sleep infinity
