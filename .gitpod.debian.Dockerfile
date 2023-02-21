@@ -46,10 +46,10 @@ ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
 # Configure Docker
-RUN curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.12/slirp4netns-$(uname -m) \
+RUN curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/slirp4netns/releases/download/v1.1.12/slirp4netns-x86_64 \
     && chmod +x /usr/bin/slirp4netns
 
-RUN curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-$(uname -m) \
+RUN curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 \
     && chmod +x /usr/local/bin/docker-compose && mkdir -p /usr/local/lib/docker/cli-plugins && \
     ln -s /usr/local/bin/docker-compose /usr/local/lib/docker/cli-plugins/docker-compose
 
