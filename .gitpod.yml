@@ -1,11 +1,6 @@
 image:
   file: .gitpod.Dockerfile
 
-tasks:
-  - name: Test
-    command: |
-      sudo pacman -S --noconfirm neofetch && neofetch 
-
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
