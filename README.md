@@ -11,7 +11,7 @@ Yeah of course, and even worse
 3. Docker might not working as expected
 
 ### Ok how to use it?
-1. Fork this repo
+1. [Fork this repo](https://github.com/sprucecellodev125/custom-gitpod-image)
 2. Edit .gitpod.yml and change the path of the dockerfile (for example if you want debian-based workspace, in line 2 change .gitpod.Dockerfile to .gitpod.debian.Dockerfile)
 PS: If you don't want to build the image you can use prebuilt, auto-updated image in this repository (for example use ghcr.io/sprucecellodev125/custom-gitpod-image:latest for Arch Linux image)
 3. Create a new workspace with the following configuration:
